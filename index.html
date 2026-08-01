@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Created in VSCode by Codex GPT-5.5 (in fast medium reasoning mode)">
+    <title>Clock</title>
+    <link rel="stylesheet" href="clock_ai.css">
+  </head>
+  <body>
+    <main class="clock-page" aria-label="Live clock">
+      <section class="clock-shell">
+        <div class="digital-panel" aria-label="Digital time">
+          <time id="digitalTime" datetime="">--:--:--</time>
+        </div>
+
+        <div class="analog-panel" aria-label="Analog clock">
+          <div class="clock-face">
+            <svg class="clock-marks" viewBox="0 0 100 100" aria-hidden="true">
+              <g id="clockMarks"></g>
+            </svg>
+            <div class="hand hour-hand" id="hourHand" aria-hidden="true"></div>
+            <div class="hand minute-hand" id="minuteHand" aria-hidden="true"></div>
+            <div class="hand second-hand" id="secondHand" aria-hidden="true"></div>
+            <div class="center-pin" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <p class="date-line">
+          <time id="dateLine" datetime="">----</time>
+        </p>
+      </section>
+    </main>
+
+    <script src="clock_ai.js"></script>
+  </body>
+</html>
