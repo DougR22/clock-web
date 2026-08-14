@@ -4,8 +4,17 @@ const clockMarks = document.querySelector("#clockMarks");
 const hourHand = document.querySelector("#hourHand");
 const minuteHand = document.querySelector("#minuteHand");
 const secondHand = document.querySelector("#secondHand");
+let lastDisplayedSecond = -1;
 
-const timeFormatter = new Intl.DateTimeFormat("en-US", {
+const digitalTimeFormatter12Hour = new Intl.DateTimeFormat("en-US", {
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hourCycle: "h12",
+  hour12: true
+});
+
+const dateLineTimeFormatter24Hour = new Intl.DateTimeFormat("en-US", {
   hour: "2-digit",
   minute: "2-digit",
   second: "2-digit",
@@ -31,6 +40,15 @@ function getLocalDateText(date) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+function getDigitalTimeText12Hour(date) {
+  return digitalTimeFormatter12Hour
+    .formatToParts(date)
+    .filter((part) => part.type !== "dayPeriod")
+    .map((part) => part.value)
+    .join("")
+    .trim();
 }
 
 function drawClockMarks() {
@@ -69,15 +87,22 @@ function updateClock() {
   minuteHand.style.transform = `translateX(-50%) rotate(${minuteDegrees}deg)`;
   secondHand.style.transform = `translateX(-50%) rotate(${secondDegrees}deg)`;
 
-  const digitalText = timeFormatter.format(now);
-  const dateText = getLocalDateText(now);
-  const weekday = weekdayFormatter.format(now);
-  const zone = getTimeZoneName(now);
+  const currentSecond = Math.floor(now.getTime() / 1000);
 
-  digitalTime.textContent = digitalText;
-  digitalTime.dateTime = now.toISOString();
-  dateLine.textContent = `${dateText} -- ${weekday} -- ${digitalText} ${zone}`;
-  dateLine.dateTime = now.toISOString();
+  if (currentSecond !== lastDisplayedSecond) {
+    lastDisplayedSecond = currentSecond;
+
+    const digitalText = getDigitalTimeText12Hour(now);
+    const dateLineTimeText = dateLineTimeFormatter24Hour.format(now);
+    const dateText = getLocalDateText(now);
+    const weekday = weekdayFormatter.format(now);
+    const zone = getTimeZoneName(now);
+
+    digitalTime.textContent = digitalText;
+    digitalTime.dateTime = now.toISOString(); // Machine-readable UTC timestamp.
+    dateLine.textContent = `${dateText} -- ${weekday} -- ${dateLineTimeText} ${zone}`;
+    dateLine.dateTime = now.toISOString(); // Machine-readable UTC timestamp.
+  }
 
   requestAnimationFrame(updateClock);
 }
