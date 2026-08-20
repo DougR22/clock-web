@@ -1,3 +1,6 @@
+
+// Purpose: Display a live clock with both digital and analog representations, updating every second.
+
 const digitalTime = document.querySelector("#digitalTime");
 const dateLine = document.querySelector("#dateLine");
 const clockMarks = document.querySelector("#clockMarks");
