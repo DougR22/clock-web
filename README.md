@@ -2,7 +2,7 @@
 
 This project is a small static web page that implements a live clock in both digital and analog formats.
 
-It was created in VSCode by Codex GPT-5.5 (in fast medium reasoning mode), with minor updates by 5.6 Luna (medium reasoning mode).
+It was created in VSCode with Codex GPT-5.5, and updated with 5.6 Luna (medium reasoning mode).
 
 ## Files
 
@@ -82,7 +82,7 @@ Once per second, the script also updates:
 2. The date line.
 3. The machine-readable UTC timestamps on the `<time>` elements.
 
-The digital panel uses a 12-hour format without an AM/PM indicator. The date line remains in 24-hour format.
+The digital panel uses a 12-hour format without an AM/PM indicator, and the hour does not use a leading zero. The date line remains in 24-hour format.
 
 The hand rotations are calculated per frame as follows:
 
@@ -110,10 +110,17 @@ const zoneFormatter = new Intl.DateTimeFormat("en-US", {
 
 ## Background Color Controls
 
-`color.js` applies the initial background color and handles navigation through the dark color list.  
-Users can use the left and right arrow keys to move backward and forward through the color list.   
-Users can also click or tap the left/right side of the screen to move through the color list.  
+`color.js` applies the initial background color and handles navigation through the list of 10 dark colors.  
+Click or tap the left/right side of the screen to move through the color list.  Press L/R arrows to do same.  
 Touch scrolling and pinch-to-zoom remain available.
+
+## Keyboard Color Controls
+
+`color.js` provides two additional keyboard controls:
+
+- Press L/R arrow keys to cycle thru background dark color list described above.
+- Press `S` to cycle the second hand through bright red, bright green, and gray.
+- Press `T` to cycle the digital time through its original white, blue, and green colors.
 
 
 ## Running It

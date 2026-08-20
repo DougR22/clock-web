@@ -10,7 +10,7 @@ const secondHand = document.querySelector("#secondHand");
 let lastDisplayedSecond = -1;
 
 const digitalTimeFormatter12Hour = new Intl.DateTimeFormat("en-US", {
-  hour: "2-digit",
+  hour: "numeric",
   minute: "2-digit",
   second: "2-digit",
   hourCycle: "h12",

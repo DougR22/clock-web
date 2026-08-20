@@ -1,7 +1,7 @@
 
 // Purpose: Allow user to change background color using mouse click, touch, or keyboard arrow keys.
 
-const colors = [
+const darkColors = [
     "#4B0082",   // Indigo
     "#0B2D5C",   // Dark blue
     "#4A0F0F",   // Dark maroon
@@ -15,19 +15,33 @@ const colors = [
 ];
 
 let index = 0;
+let secondHandColorIndex = 0;
+let digitalTimeColorIndex = 0;
 
 function showColor() {
-    document.body.style.backgroundColor = colors[index];
+    document.body.style.backgroundColor = darkColors[index];
 }
 
 function nextColor() {
-    index = (index + 1) % colors.length;
+    index = (index + 1) % darkColors.length;
     showColor();
 }
 
 function previousColor() {
-    index = (index - 1 + colors.length) % colors.length;
+    index = (index - 1 + darkColors.length) % darkColors.length;
     showColor();
+}
+
+function toggleSecondHandColor() {
+    const secondHandColors = ["#FF1616", "#00FF00", "#808080"];
+    secondHandColorIndex = (secondHandColorIndex + 1) % secondHandColors.length;
+    document.documentElement.style.setProperty("--second", secondHandColors[secondHandColorIndex]);
+}
+
+function cycleDigitalTimeColor() {
+    const digitalTimeColors = ["#F7F0FF", "#1637CB", "#00E900"];
+    digitalTimeColorIndex = (digitalTimeColorIndex + 1) % digitalTimeColors.length;
+    document.querySelector("#digitalTime").style.color = digitalTimeColors[digitalTimeColorIndex];
 }
 
 // Show the initial color.
@@ -50,6 +64,14 @@ document.addEventListener("keydown", function (e) {
         break;
     case "ArrowLeft":
         previousColor();
+        break;
+    case "s":
+    case "S":
+        toggleSecondHandColor();
+        break;
+    case "t":
+    case "T":
+        cycleDigitalTimeColor();
         break;
     }
 });
