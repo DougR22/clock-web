@@ -9,6 +9,7 @@ It was created in VSCode by Codex GPT-5.5 (in fast medium reasoning mode), with 
 - `index.html` contains the page structure.
 - `clock_ai.css` contains the layout and visual styling.
 - `clock_ai.js` updates the live digital time, date line, analog hands, and tick marks.
+- `color.js` changes the page background through a list of dark colors.
 
 ## HTML Structure
 
@@ -19,6 +20,8 @@ It was created in VSCode by Codex GPT-5.5 (in fast medium reasoning mode), with 
 - A date line underneath with the local date, weekday, current time, and timezone.
 
 The digital panel is the accessible time display. The analog panel is hidden from screen readers because it duplicates the digital time.
+
+The page background can be changed interactively as noted in the [Background Color Controls](#background-color-controls) section below.
 
 The analog clock uses normal HTML elements for the hands and an inline SVG layer for the tick marks:
 
@@ -104,6 +107,14 @@ const zoneFormatter = new Intl.DateTimeFormat("en-US", {
   timeZoneName: "short"
 });
 ```
+
+## Background Color Controls
+
+`color.js` applies the initial background color and handles navigation through the dark color list.  
+Users can use the left and right arrow keys to move backward and forward through the color list.   
+Users can also click or tap the left/right side of the screen to move through the color list.  
+Touch scrolling and pinch-to-zoom remain available.
+
 
 ## Running It
 
