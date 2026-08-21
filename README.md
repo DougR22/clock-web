@@ -1,14 +1,14 @@
 # Web Clock: How It Works
 
-This project is a small static web page that implements a live clock in both digital and analog formats.
+This project is a small static web page that implements a live clock in both digital and analog formats. Users can change colors of background, time and second hand, see [Color Controls](#clicktap-color-controls) section below.
 
-It was created in VSCode with Codex GPT-5.5, and updated with 5.6 Luna (medium reasoning mode).
+It was created in VSCode using Codex GPT-5.5 and 5.6 Luna (medium reasoning mode).
 
 ## Files
 
 - `index.html` contains the page structure.
-- `clock_ai.css` contains the layout and visual styling.
-- `clock_ai.js` updates the live digital time, date line, analog hands, and tick marks.
+- `clock.css` contains the layout and visual styling.
+- `clock.js` updates the live digital time, date line, analog hands, and tick marks.
 - `color.js` changes the page background through a list of dark colors.
 
 ## HTML Structure
@@ -20,8 +20,6 @@ It was created in VSCode with Codex GPT-5.5, and updated with 5.6 Luna (medium r
 - A date line underneath with the local date, weekday, current time, and timezone.
 
 The digital panel is the accessible time display. The analog panel is hidden from screen readers because it duplicates the digital time.
-
-The page background can be changed interactively as noted in the [Background Color Controls](#background-color-controls) section below.
 
 The analog clock uses normal HTML elements for the hands and an inline SVG layer for the tick marks:
 
@@ -35,7 +33,7 @@ The JavaScript fills this SVG group with 60 tick marks when the page loads.
 
 ## Styling
 
-`clock_ai.css` defines the main colors at the top:
+`clock.css` defines the main colors at the top:
 
 ```css
 :root {
@@ -53,7 +51,7 @@ The clock is responsive to resizing. The `.clock-shell` has a fixed maximum widt
 
 ## Tick Marks
 
-The tick marks are generated in `clock_ai.js` by `drawClockMarks()`.
+The tick marks are generated in `clock.js` by `drawClockMarks()`.
 
 There are 60 total marks drawn by the for loop:
 
@@ -108,19 +106,19 @@ const zoneFormatter = new Intl.DateTimeFormat("en-US", {
 });
 ```
 
-## Background Color Controls
+## Click/Tap Color Controls
 
-`color.js` applies the initial background color and handles navigation through the list of 10 dark colors.  
-Click or tap the left/right side of the screen to move through the color list.  Press L/R arrows to do same.  
-Touch scrolling and pinch-to-zoom remain available.
+`color.js` handles color changes as follows:
+- Click/tap the `background` (initially purple) to cycle thru color list. Click on L/R to cycle Fwd/Rev thru color list.    
+- Click/tap the `digital time panel` to cycle digits thru colors: white, green, blue, black.  
+- Click/tap the `analog time panel` to cycle second hand thru colors: red, green, white, gray.  
+
 
 ## Keyboard Color Controls
 
-`color.js` provides two additional keyboard controls:
-
-- Press L/R arrow keys to cycle thru background dark color list described above.
-- Press `S` to cycle the second hand through bright red, bright green, and gray.
-- Press `T` to cycle the digital time through its original white, blue, and green colors.
+- Press L/R arrow keys to change background color.
+- Press `T` to change digital time color.
+- Press `S` to change second hand color.
 
 
 ## Running It
