@@ -1,15 +1,32 @@
 # Web Clock: How It Works
 
-This project is a small static web page that implements a live clock in both digital and analog formats. Users can change colors of background, time and second hand, see [Color Controls](#clicktap-color-controls) section below.
+This project is a small static web page that implements a live clock in both digital and analog formats. Users can change colors of background, time and second hand.
 
 It was created in VSCode using Codex GPT-5.5 and 5.6 Luna (medium reasoning mode).
+
+## Click/Tap Color Controls
+
+`color.js` handles color changes as follows:
+- Click/tap the `background` (initially purple) to cycle thru color list. Click on L/R to cycle Fwd/Rev thru color list.    
+- Click/tap the `digital time panel` to cycle digits thru colors: white, green, blue, black.  
+- Click/tap the `analog time panel` to cycle second hand thru colors: red, green, white, gray.  
+
+## Keyboard Color Controls
+
+- Press L/R arrow keys to change background color.
+- Press `T` to change digital time color.
+- Press `S` to change second hand color.
 
 ## Files
 
 - `index.html` contains the page structure.
 - `clock.css` contains the layout and visual styling.
-- `clock.js` updates the live digital time, date line, analog hands, and tick marks.
+- `clock.js` updates the live clock and scales it to fit the visible browser viewport.
 - `color.js` changes the page background through a list of dark colors.
+
+## Running It
+
+Open `index.html` in a browser. No build step, server, or install is required.
 
 ## HTML Structure
 
@@ -33,21 +50,29 @@ The JavaScript fills this SVG group with 60 tick marks when the page loads.
 
 ## Styling
 
-`clock.css` defines the main colors at the top:
+`clock.css` defines the initial colors at the top under root:
 
 ```css
 :root {
-  --page: #540082;
-  --panel: #287ed0;
-  --ink: #050505;
-  --white: #f7f0ff;
-  --second: #ff1616;
+  --page:   #540082; - purple
+  --panel:  #287ed0; - blue
+  --ink:    #050505; - black
+  --white:  #f7f0ff; - white
+  --second: #ff1616; - red
 }
 ```
 
-The page background is purple, while the digital and analog panels are blue. The clock face is a circle with a black border. The hour and minute hands are black, and the second hand is red.
+At start, page background is purple, while digital and analog panels are blue. The clock face is a circle with a black border. The hour and minute hands are black, the second hand is red.
 
-The clock is responsive to resizing. The `.clock-shell` has a fixed maximum width, but it can shrink on smaller screens.
+## Responsive Layout - Sizing
+
+The clock scales clock smaller if user resizes browser window smaller than default size of clock.
+
+`clock.js` uses `fitClockToViewport()` to calculate a scale value from the available visible width and height. The digital panel, analog panel, and date line then scale together and remain centered.
+
+The page uses `100dvh` (dynamic viewport height) so Safari and Chrome on iPad account for the visible space above the browser's bottom controls (not an issue on Edge in iPad as of this date). The script also uses `visualViewport` when available and recalculates when the browser window or visible viewport changes.
+
+The date line stays on one line and is included when calculating the clock's required width.
 
 ## Tick Marks
 
@@ -64,7 +89,7 @@ Each mark is an SVG line rotated around the center of the clock by 6 degrees:
 line.setAttribute("transform", `rotate(${mark * 6} 50 50)`);
 ```
 
-## Live Clock Logic
+## Clock Animation
 
 The browser API `requestAnimationFrame()` runs function `updateClock()` . This function is called just before the next browser screen repaint, allowing the analog hands to move smoothly.
 
@@ -105,22 +130,3 @@ const zoneFormatter = new Intl.DateTimeFormat("en-US", {
   timeZoneName: "short"
 });
 ```
-
-## Click/Tap Color Controls
-
-`color.js` handles color changes as follows:
-- Click/tap the `background` (initially purple) to cycle thru color list. Click on L/R to cycle Fwd/Rev thru color list.    
-- Click/tap the `digital time panel` to cycle digits thru colors: white, green, blue, black.  
-- Click/tap the `analog time panel` to cycle second hand thru colors: red, green, white, gray.  
-
-
-## Keyboard Color Controls
-
-- Press L/R arrow keys to change background color.
-- Press `T` to change digital time color.
-- Press `S` to change second hand color.
-
-
-## Running It
-
-Open `index.html` in a browser. No build step, server, or install is required.
