@@ -7,6 +7,8 @@ const clockMarks = document.querySelector("#clockMarks");
 const hourHand = document.querySelector("#hourHand");
 const minuteHand = document.querySelector("#minuteHand");
 const secondHand = document.querySelector("#secondHand");
+const clockPage = document.querySelector(".clock-page");
+const clockShell = document.querySelector(".clock-shell");
 let lastDisplayedSecond = -1;
 
 const digitalTimeFormatter12Hour = new Intl.DateTimeFormat("en-US", {
@@ -75,6 +77,26 @@ function drawClockMarks() {
   clockMarks.append(fragment);
 }
 
+function fitClockToViewport() {
+  clockShell.style.setProperty("--clock-scale", "1");
+
+  const pageStyles = window.getComputedStyle(clockPage);
+  const viewport = window.visualViewport;
+  const viewportWidth = viewport?.width ?? window.innerWidth;
+  const viewportHeight = viewport?.height ?? window.innerHeight;
+  const availableWidth = viewportWidth
+    - parseFloat(pageStyles.paddingLeft)
+    - parseFloat(pageStyles.paddingRight);
+  const availableHeight = viewportHeight
+    - parseFloat(pageStyles.paddingTop)
+    - parseFloat(pageStyles.paddingBottom);
+  const clockWidth = Math.max(clockShell.offsetWidth, dateLine.scrollWidth);
+  const clockHeight = clockShell.offsetHeight;
+  const scale = Math.min(1, availableWidth / clockWidth, availableHeight / clockHeight);
+
+  clockShell.style.setProperty("--clock-scale", String(scale));
+}
+
 function updateClock() {
   const now = new Date();
   const hours = now.getHours();
@@ -105,6 +127,7 @@ function updateClock() {
     digitalTime.dateTime = now.toISOString(); // Machine-readable UTC timestamp.
     dateLine.textContent = `${dateText} -- ${weekday} -- ${dateLineTimeText} ${zone}`;
     dateLine.dateTime = now.toISOString(); // Machine-readable UTC timestamp.
+    fitClockToViewport();
   }
 
   requestAnimationFrame(updateClock);
@@ -112,3 +135,6 @@ function updateClock() {
 
 drawClockMarks();
 updateClock();
+fitClockToViewport();
+window.addEventListener("resize", fitClockToViewport);
+window.visualViewport?.addEventListener("resize", fitClockToViewport);

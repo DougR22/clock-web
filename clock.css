@@ -24,14 +24,25 @@ body {
 }
 
 .clock-page {
+  position: relative;
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 22px;
+  padding: clamp(8px, 5vw, 22px);
+  overflow: hidden;
 }
 
 .clock-shell {
-  width: min(100%, 290px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(320px, 80vw);
+  max-width: 100%;
+  min-width: 0;
+  transform: translate(-50%, -50%) scale(var(--clock-scale, 1));
+  transform-origin: center;
 }
 
 .digital-panel,
@@ -137,8 +148,13 @@ body {
 }
 
 .date-line {
+  width: max-content;
   margin: 13px 0 0;
   text-align: center;
+  white-space: nowrap;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size: 16px;
   line-height: 2.0;
@@ -147,10 +163,6 @@ body {
 }
 
 @media (min-width: 720px) {
-  .clock-shell {
-    width: 320px;
-  }
-
   .digital-panel {
     min-height: 82px;
   }
