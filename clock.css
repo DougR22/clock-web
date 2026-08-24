@@ -3,6 +3,7 @@
   --panel: #287ed0;
   --panel-shadow: rgba(0, 0, 0, 0.28);
   --ink: #050505;
+  --hands: #050505;
   --white: #f7f0ff;
   --second: #ff1616;
 }
@@ -109,7 +110,7 @@ body {
   bottom: 50%;
   width: 8px;
   border-radius: 999px 999px 2px 2px;
-  background: var(--ink);
+  background: var(--hands);
   transform-origin: 50% 100%;
   transform: translateX(-50%) rotate(0deg);
 }

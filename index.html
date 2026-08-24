@@ -1,18 +1,21 @@
 <!doctype html>
-<!-- Purpose: Provide the page structure for the live digital and analog clock. 
-              Load color.js to allow user to change colors using mouse click, touch, or keyboard arrow keys.
+<!-- Purpose: Digital + analog clock - redo in 2026 - see README.md
 -->
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Created in VSCode using Codex GPT-5.5 and 5.6 Luna (medium reasoning mode)">
+    <meta name="author" content="DRBR">
+    <meta name="generator" content="Created in VSCode using Codex GPT-5.5 updated with 5.6 Luna and Terra">
     <title>Clock</title>
     <link rel="stylesheet" href="clock.css">
+    <script src="clock.js" defer></script>
+    <script src="color.js" defer></script>
   </head>
   <body>
     <main class="clock-page" aria-label="Current local time">
       <section class="clock-shell">
+        
         <div class="digital-panel">
           <time id="digitalTime" datetime="">--:--:--</time>
         </div>
@@ -34,8 +37,5 @@
         </p>
       </section>
     </main>
-
-    <script src="clock.js"></script>
-    <script src="color.js"></script>
   </body>
 </html>
