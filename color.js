@@ -1,4 +1,3 @@
-
 // Purpose: Allow user to change colors using click, touch, or keyboard.
 
 const bgDarkColors = [

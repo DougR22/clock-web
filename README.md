@@ -1,6 +1,6 @@
 # What + How
 
-This project is a small **static web page** that implements a **live clock** in both digital and analog formats. Users can change the background color, the digital time color and the analog hand colors.
+**Static web page** that implements a **live clock** in both digital and analog formats. Users can change the background color, the digital time color and the analog hand colors.
 
 I created it in VSCode using Codex GPT-5.5.  Updates were done in 5.6 using Luna followed by Terra (for the part that Luna could not do, scaling).  Reasoning mode was set to medium.
 

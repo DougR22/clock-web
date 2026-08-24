@@ -1,5 +1,7 @@
-
-// Purpose: Display a live clock with both digital and analog representations, updating every second. Handle resizing to fit the viewport.
+// Purpose: 
+//    Display live clock with both digital and analog representations, latter using frame animation. 
+//    On load/reload draw tick marks for seconds and minutes.
+//    Handle resizing to fit the viewport.
 
 const digitalTime = document.querySelector("#digitalTime");
 const dateLine = document.querySelector("#dateLine");
