@@ -1,10 +1,36 @@
 function getBrowser(ua) {
-  if (/SamsungBrowser/i.test(ua)) return "Samsung Internet";
-  if (/EdgA|EdgiOS|Edg\//i.test(ua)) return "Edge";
-  if (/DuckDuckGo/i.test(ua)) return "DuckDuckGo";
-  if (/Firefox|FxiOS/i.test(ua)) return "Firefox";
-  if (/CriOS|Chrome/i.test(ua)) return "Chrome";
-  if (/Safari/i.test(ua)) return "Safari";
+  // Samsung Internet must be checked before Chrome
+  if (/SamsungBrowser\//i.test(ua)) {
+    return "Samsung Internet";
+  }
+  if (/EdgA\//i.test(ua)) {
+    return "Edge Android";
+  }
+  if (/EdgiOS\//i.test(ua)) {
+    return "Edge iOS";
+  }
+  if (/Edg\//i.test(ua)) {
+    return "Edge";
+  }
+  if (/DuckDuckGo\//i.test(ua)) {
+    return "DuckDuckGo";
+  }
+  if (/FxiOS\//i.test(ua)) {
+    return "Firefox iOS";
+  }
+  if (/Firefox\//i.test(ua)) {
+    return "Firefox";
+  }
+  if (/CriOS\//i.test(ua)) {
+    return "Chrome iOS";
+  }
+  if (/Chrome\//i.test(ua)) {
+    return "Chrome";
+  }
+  // Safari must come after the Chromium checks
+  if (/Safari\//i.test(ua)) {
+    return "Safari";
+  }
   return "Other";
 }
 
@@ -39,6 +65,7 @@ export default {
         device: getDevice(ua),
         os: getOS(ua),
         browser: getBrowser(ua),
+        userAgent: ua,
         path: url.pathname
       });
     }
