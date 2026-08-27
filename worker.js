@@ -34,16 +34,29 @@ function getBrowser(ua) {
   return "Other";
 }
 
-function getOS(ua) {
+function getOS(ua, cfDeviceType = "") {
   if (/Android/i.test(ua)) return "Android";
   if (/iPhone|iPad|iPod/i.test(ua)) return "iOS/iPadOS";
   if (/Windows/i.test(ua)) return "Windows";
+  // iPadOS can identify itself as Macintosh when "Request Desktop Website"
+  // is enabled. CF-Device-Type supplies the device signal that the UA omits.
+  if (
+    /Macintosh|Mac OS X/i.test(ua) &&
+    /^(mobile|tablet)$/i.test(cfDeviceType)
+  ) {
+    return "iOS/iPadOS";
+  }
   if (/Macintosh|Mac OS X/i.test(ua)) return "macOS";
   if (/Linux/i.test(ua)) return "Linux";
   return "Other";
 }
 
-function getDevice(ua) {
+function getDevice(ua, cfDeviceType = "") {
+  // Cloudflare's device classification handles iPadOS desktop-mode UAs,
+  // which look like desktop Safari and contain neither "iPad" nor "Tablet".
+  if (/^(mobile|tablet|desktop)$/i.test(cfDeviceType)) {
+    return cfDeviceType[0].toUpperCase() + cfDeviceType.slice(1).toLowerCase();
+  }
   if (/iPad|Tablet/i.test(ua)) return "Tablet";
   if (/Mobile|Android|iPhone|iPod/i.test(ua)) return "Mobile";
   return "Desktop";
@@ -56,14 +69,15 @@ export default {
     // Log only requests for the home page.
     if (url.pathname === "/") {
       const ua = request.headers.get("User-Agent") || "";
+      const cfDeviceType = request.headers.get("CF-Device-Type") || "";
 
       console.log({
         type: "visitor",
         time: new Date().toISOString(),
         ip: request.headers.get("CF-Connecting-IP"),
         country: request.cf?.country || "Unknown",
-        device: getDevice(ua),
-        os: getOS(ua),
+        device: getDevice(ua, cfDeviceType),
+        os: getOS(ua, cfDeviceType),
         browser: getBrowser(ua),
         userAgent: ua,
         path: url.pathname
