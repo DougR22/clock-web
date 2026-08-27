@@ -62,26 +62,48 @@ function getDevice(ua, cfDeviceType = "") {
   return "Desktop";
 }
 
+const operatingSystems = new Set([
+  "Android",
+  "iOS/iPadOS",
+  "Windows",
+  "macOS",
+  "Linux",
+  "Other"
+]);
+const devices = new Set(["Desktop", "Mobile", "Tablet"]);
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // Log only requests for the home page.
-    if (url.pathname === "/") {
+    // The page reports its device after it loads. This detects an iPad using
+    // desktop Safari's Mac-like user agent via navigator.maxTouchPoints.
+    if (url.pathname === "/__visitor" && request.method === "POST") {
       const ua = request.headers.get("User-Agent") || "";
       const cfDeviceType = request.headers.get("CF-Device-Type") || "";
+      let client = {};
+
+      try {
+        client = await request.json();
+      } catch {
+        // Fall back to the request headers if the beacon body is unavailable.
+      }
 
       console.log({
         type: "visitor",
         time: new Date().toISOString(),
         ip: request.headers.get("CF-Connecting-IP"),
         country: request.cf?.country || "Unknown",
-        device: getDevice(ua, cfDeviceType),
-        os: getOS(ua, cfDeviceType),
+        device: devices.has(client.device)
+          ? client.device
+          : getDevice(ua, cfDeviceType),
+        os: operatingSystems.has(client.os) ? client.os : getOS(ua, cfDeviceType),
         browser: getBrowser(ua),
         userAgent: ua,
-        path: url.pathname
+        path: client.path === "/" ? client.path : "/"
       });
+
+      return new Response(null, { status: 204 });
     }
 
     return env.ASSETS.fetch(request);
