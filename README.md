@@ -43,7 +43,7 @@ No build step, server, or install is required, just open `index.html` in a brows
 
 - A digital panel at the top with the current local time.
 - An analog panel with a circular clock face.
-- A date line underneath with the date, weekday, time, and timezone.
+- A date line underneath with the date, weekday, and time in 24-hour format with timezone.
 
 The digital panel is the accessible time display. The analog panel is hidden from accessibility screen readers because it duplicates the digital time.
 
@@ -138,7 +138,7 @@ The page uses `100dvh` (dynamic viewport height) so that Safari and Chrome on iP
 
 ## PNG Assets
 
-The first 2 below are in use, the last one is the original (not currently in use but could be used for installable web app/PWA).
+The first two below are in use, the last one is not. It is the original which I edited with GIMP to produce the first two. It could be used for installable web app/PWA.
 
 | Asset | Preview |
 | --- | --- |
