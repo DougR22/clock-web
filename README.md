@@ -21,12 +21,13 @@ No build step, server, or install is required, just open `index.html` in a brows
 - Click/tap the `analog time panel` **inside** the circle to change color of second hand.  
 - Click/tap the `analog time panel` **outside** the circle to change color of minute + hour hands.  
 
-## Keyboard Color Controls
+## Keyboard Controls
 
 - Press L/R arrow keys to change background color.
 - Press `T` to change color of digital time.
 - Press `S` to change color of second hand.
 - Press `M` to change color of minute + hour hands.
+- Press `H` to switch to the thinner, longer hour and minute hands. Press again revert.
 
 ## Files
 

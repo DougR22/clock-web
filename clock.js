@@ -69,7 +69,7 @@ function drawClockMarks() {
     line.setAttribute("x1", "50");
     line.setAttribute("y1", "2.5");
     line.setAttribute("x2", "50");
-    line.setAttribute("y2", isMajor ? "10.5" : "5.0");
+    line.setAttribute("y2", isMajor ? "8.5" : "5.0");
     line.setAttribute("transform", `rotate(${mark * 6} 50 50)`);
     line.setAttribute("class", isMajor ? "major-mark" : "minor-mark");
 

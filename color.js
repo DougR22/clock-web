@@ -1,4 +1,4 @@
-// Purpose: Allow user to change colors using click, touch, or keyboard.
+// Purpose: Allow user to change colors using click, touch, or keyboard, and hand sizes using H.
 
 const bgDarkColors = [
     "#4B0082",   // Indigo
@@ -112,6 +112,12 @@ document.addEventListener("keydown", function (e) {
     case "t":
     case "T":
         cycleDigitalTimeColor();
+        break;
+    case "h":
+    case "H":
+        if (!e.repeat && !e.ctrlKey && !e.altKey && !e.metaKey) {
+            clockFace.classList.toggle("adjusted-hands");
+        }
         break;
     }
 });
