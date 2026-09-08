@@ -148,13 +148,4 @@ The first two below are in use, the last one is not. It is the original which I 
 
 ## Cloudflare Worker
 
-When deployed to Cloudflare Workers, `worker.js` serves the static site and
-provides the `/__visitor` endpoint used by `visitor.js`. When the page runs
-`visitor.js`, the browser sends the visitor's device, operating system, and
-path. The Worker adds the detected browser, timestamp, country, and Cloudflare
-device classification, then writes the report to the Worker logs. All other
-requests are served from the static asset directory.
-
-Visitor reports are written to Worker logs, available through Cloudflare Workers
-**Observability**, which is enabled in `wrangler.jsonc`. This is intentionally lightweight analytics: it
-uses no cookies and no personal identifiers.  The purpose is to see over time what types of devices are being used and from what countries.
+When deployed to Cloudflare Workers, `worker.js` serves the static site and provides the `/__visitor` endpoint used by `visitor.js`. When the page runs `visitor.js`, the browser sends the visitor's device, operating system, and path. The Worker adds the detected browser, timestamp, country, and Cloudflare device classification, then writes the report to the Worker logs. All other requests are served from the static asset directory. Logs are available through Cloudflare Workers **Observability**, which is enabled in `wrangler.jsonc`. This is intentionally lightweight analytics: it uses no cookies and no personal identifiers.  The purpose is to see over time what types of devices are being used and from what countries.
