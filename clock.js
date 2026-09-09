@@ -69,7 +69,7 @@ function drawClockMarks() {
     line.setAttribute("x1", "50");
     line.setAttribute("y1", "2.5");
     line.setAttribute("x2", "50");
-    line.setAttribute("y2", isMajor ? "10.5" : "5.0");
+    line.setAttribute("y2", isMajor ? "8.5" : "5.0");
     line.setAttribute("transform", `rotate(${mark * 6} 50 50)`);
     line.setAttribute("class", isMajor ? "major-mark" : "minor-mark");
 
@@ -80,8 +80,8 @@ function drawClockMarks() {
 }
 
 function fitClockToViewport() {
-  clockShell.style.setProperty("--clock-scale", "1");
-
+  // Layout dimensions below are unaffected by transforms, so keep the current
+  // scale while measuring to avoid disturbing the SVG rendering every second.
   const pageStyles = window.getComputedStyle(clockPage);
   const viewport = window.visualViewport;
   const viewportWidth = viewport?.width ?? window.innerWidth;
@@ -96,7 +96,10 @@ function fitClockToViewport() {
   const clockHeight = clockShell.offsetHeight;
   const scale = Math.min(1, availableWidth / clockWidth, availableHeight / clockHeight);
 
-  clockShell.style.setProperty("--clock-scale", String(scale));
+  const scaleValue = String(scale);
+  if (clockShell.style.getPropertyValue("--clock-scale") !== scaleValue) {
+    clockShell.style.setProperty("--clock-scale", scaleValue);
+  }
 }
 
 function updateClock() {

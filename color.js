@@ -1,4 +1,4 @@
-// Purpose: Allow user to change colors using click, touch, or keyboard.
+// Purpose: Allow user to change colors and hand sizes using click, touch, or keyboard.
 
 const bgDarkColors = [
     "#4B0082",   // Indigo
@@ -54,11 +54,15 @@ const digitalPanel = document.querySelector(".digital-panel");
 const analogPanel = document.querySelector(".analog-panel");
 const clockFace = document.querySelector(".clock-face");
 
+function toggleHandStyle() {
+    clockFace.classList.toggle("adjusted-hands");
+}
+
 digitalPanel.addEventListener("click", function () {
     cycleDigitalTimeColor();
 });
 
-// user can click inside or outside the clock face to change hand colors
+// The top-left corner toggles hand sizes; other clicks change hand colors.
 analogPanel.addEventListener("click", function (event) {
     const faceBounds = clockFace.getBoundingClientRect();
     const faceCenterX = faceBounds.left + faceBounds.width / 2;
@@ -68,6 +72,22 @@ analogPanel.addEventListener("click", function (event) {
         event.clientX - faceCenterX,
         event.clientY - faceCenterY
     ) <= faceRadius;
+
+    const panelBounds = analogPanel.getBoundingClientRect();
+    // x + y = centerX + centerY - radius * sqrt(2) is tangent to the
+    // circle at its upper-left edge. The panel edges complete the triangle.
+    const cornerDiagonal = faceCenterX + faceCenterY - faceRadius * Math.SQRT2;
+    const clickedHandStyleCorner = !clickedInsideClockFace
+        && event.clientX >= panelBounds.left
+        && event.clientX <= panelBounds.right
+        && event.clientY >= panelBounds.top
+        && event.clientY <= panelBounds.bottom
+        && event.clientX + event.clientY <= cornerDiagonal;
+
+    if (clickedHandStyleCorner) {
+        toggleHandStyle();
+        return;
+    }
 
     if (clickedInsideClockFace) {
         toggleSecondHandColor();
@@ -112,6 +132,12 @@ document.addEventListener("keydown", function (e) {
     case "t":
     case "T":
         cycleDigitalTimeColor();
+        break;
+    case "h":
+    case "H":
+        if (!e.repeat && !e.ctrlKey && !e.altKey && !e.metaKey) {
+            toggleHandStyle();
+        }
         break;
     }
 });

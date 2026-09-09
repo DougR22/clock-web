@@ -14,19 +14,22 @@ Sections below cover usage and how it works.
 
 No build step, server, or install is required, just open `index.html` in a browser.
 
-## Click/Tap Color Controls
+## Click/Tap Controls
 
 - Click/tap the `background` (initially purple) to cycle thru colors. Click on right side cycles forward thru colors, click on left for reverse.
 - Click/tap the `digital time panel` to change color of digits.  
 - Click/tap the `analog time panel` **inside** the circle to change color of second hand.  
 - Click/tap the `analog time panel` **outside** the circle to change color of minute + hour hands.  
+- Click/tap the `analog time panel` **top-left corner** to toggle hour hand size.
 
-## Keyboard Color Controls
+
+## Keyboard Controls
 
 - Press L/R arrow keys to change background color.
 - Press `T` to change color of digital time.
 - Press `S` to change color of second hand.
 - Press `M` to change color of minute + hour hands.
+- Press `H` to toggle hour hand size.
 
 ## Files
 
