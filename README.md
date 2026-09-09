@@ -20,7 +20,7 @@ No build step, server, or install is required, just open `index.html` in a brows
 - Click/tap the `digital time panel` to change color of digits.  
 - Click/tap the `analog time panel` **inside** the circle to change color of second hand.  
 - Click/tap the `analog time panel` **outside** the circle to change color of minute + hour hands.  
-- Click/tap the `analog time panel` **top-left corner** to toggle hand sizes.
+- Click/tap the `analog time panel` **top-left corner** to toggle hour hand size.
 
 
 ## Keyboard Controls
@@ -29,7 +29,7 @@ No build step, server, or install is required, just open `index.html` in a brows
 - Press `T` to change color of digital time.
 - Press `S` to change color of second hand.
 - Press `M` to change color of minute + hour hands.
-- Press `H` to toggle hand sizes.
+- Press `H` to toggle hour hand size.
 
 ## Files
 

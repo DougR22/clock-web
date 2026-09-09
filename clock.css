@@ -120,17 +120,19 @@ body {
 }
 
 .minute-hand {
-  height: 45%;
+  /* Major tick marks reach inward to 41.5% of the face from its center. */
+  height: 41%;
+}
+
+.hour-hand,
+.minute-hand {
+  border-radius: 0;
+  clip-path: polygon(50% 0, 100% 8px, 100% 100%, 0 100%, 0 8px);
 }
 
 .clock-face.adjusted-hands .hour-hand {
   width: 11px;
   height: 31%;
-}
-
-.clock-face.adjusted-hands .minute-hand {
-  /* Major tick marks reach inward to 41.5% of the face from its center. */
-  height: 41%;
 }
 
 .second-hand {
